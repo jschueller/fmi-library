@@ -20,9 +20,9 @@ function(merge_static_libs outlib)
     set(dummyfile ${CMAKE_CURRENT_BINARY_DIR}/${outlib}_dummy.c)
     file(WRITE ${dummyfile} "const char* dummy = \"${dummyfile}\";")
 
-    add_library(${outlib} STATIC $<TARGET_OBJECTS:fmicapi> $<TARGET_OBJECTS:fmiimport> $<TARGET_OBJECTS:fmixml> $<TARGET_OBJECTS:fmizip>
+    add_library(${outlib} STATIC $<TARGET_OBJECTS:fmicapi> $<TARGET_OBJECTS:fmixml> $<TARGET_OBJECTS:fmizip>
                                  $<TARGET_OBJECTS:minizip> $<TARGET_OBJECTS:zlib>)
-    add_dependencies(${outlib} fmiimport)
+    # add_dependencies(${outlib} fmiimport)
     target_link_libraries(${outlib} PUBLIC expat)
     target_link_libraries(${outlib} PUBLIC minizip)
     target_link_libraries(${outlib} PUBLIC zlib)
