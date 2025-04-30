@@ -30,10 +30,12 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build
         run: |
-          cmake -DCMAKE_INSTALL_PREFIX=C:/Users/runneradmin/fmilib -DFMILIB_GENERATE_DOXYGEN_DOC=0 -B build_cmake -G Ninja -LAH .
-          cmake --build build_cmake --target install --parallel 4
+          cmake -DCMAKE_INSTALL_PREFIX=C:/Users/runneradmin/fmilib -DFMILIB_GENERATE_DOXYGEN_DOC=0 -DFMILIB_BUILD_TESTS=OFF -B build_vs -LAH . &&
+          cmake --build build_vs --target ALL_BUILD --parallel 4 &&
+          cmake -DCMAKE_INSTALL_PREFIX=C:/Users/runneradmin/fmilib -DFMILIB_GENERATE_DOXYGEN_DOC=0 -B build_ninja -G Ninja -LAH . &&
+          cmake --build build_ninja --target install --parallel 4
       - name: Test
-        run: ctest --test-dir build_cmake --output-on-failure
+        run: ctest --test-dir build_ninja --output-on-failure
 
   macos:
     runs-on: macos-latest
