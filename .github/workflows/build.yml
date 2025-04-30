@@ -44,6 +44,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build
         run: |
+          cmake --version
+          brew install cmake
+          cmake --version
           cmake -DCMAKE_INSTALL_PREFIX=~/.local -DFMILIB_GENERATE_DOXYGEN_DOC=0 -B build_cmake .
           cmake --build build_cmake --target install --parallel 4
       - name: Test
